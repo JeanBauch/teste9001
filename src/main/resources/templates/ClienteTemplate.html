@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/style.css">
+    <title>Clientes</title>
+</head>
+<body>
+    <div class="templatePadrao">
+        <h1>Cadastro de Clientes</h1>
+        <a href="/">Menu</a>
+        <br>
+        <div th:if="${erro}">
+            <strong th:text="${erro}"></strong>
+            <span id="x" onclick="this.parentElement.style.display='none';">&times;</span>
+        </div>
+        <div th:if="${erro2}">
+            <strong th:text="${erro2}"></strong>
+            <span id="x" onclick="this.parentElement.style.display='none';">&times;</span>
+        </div>
+
+        <br>
+        <form th:action="@{/salvarCliente}" method="POST">
+            <label>Nome: </label>
+            <input type="text" placeholder="Insira o nome" name="nome" required/>
+            <label>Telefone: </label>
+            <input type="text" placeholder="Insira o telefone" name="telefone" required/>
+            <label>CPF: </label>
+            <input type="text" placeholder="Insira o CPF" name="cpf" required/>
+            <br>
+            <br>
+            <label>Idade: </label>
+            <input type="text" placeholder="Insira a idade" name="idade" required/>
+            <br>
+            <br>
+            <input type="submit" value="Salvar"/>
+        </form>
+
+        <br>
+        <br>
+
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Telefone</th>
+                <th>CPF</th>
+                <th>Idade</th>
+                <th>Detalhes</th>
+                <th>Editar</th>
+                <th>Remover</th>
+            </tr>
+            <tr th:each="cliente : ${clientes}">
+                <td th:text="${cliente.idCliente}"></td>
+                <td th:text="${cliente.nome}"></td>
+                <td th:text="${cliente.telefone}"></td>
+                <td th:text="${cliente.cpf}"></td>
+                <td th:text="${cliente.idade}"></td>
+                <td> <a th:href="@{'/detalhesCliente/' + ${cliente.idCliente}}">Detalhes</a> </td>
+                <td> <a th:href="@{'/editarCliente?idC=' + ${cliente.idCliente}}">Editar</a> </td>
+                <td> <a th:href="@{'/removerCliente?idC=' + ${cliente.idCliente}}">Remover</a> </td>
+            </tr>
+        </table>
+    </div>    
+</body>
+</html>

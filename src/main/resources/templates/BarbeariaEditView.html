@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/style.css">
+    <title>Editar Autor</title>
+</head>
+<body>
+    <div class="edit">
+            
+        <h1>Editar Barbearia</h1>
+        <a href="/"> Menu</a>
+        <a href="/barbearia/listar">Voltar</a>
+        <br>
+        <br>
+        <form th:action="@{/salvarBarbearia}" th:object="${barbearia}" method="POST" id="formBarbearia">
+            
+            <label>ID:</label> <span th:text="${barbearia.idBarbearia}"></span>
+            <br>
+            <input type="hidden" th:value="${barbearia.idBarbearia}" th:field="${barbearia.idBarbearia}" name="idbarbearia" />
+            
+            <label>Nome:</label>
+            <input type="text" placeholder="Nome" th:value="${barbearia.nome}" name="nome" required/>
+            <br>
+            <label>Endereço:</label>
+            <input type="text" placeholder="Endereço" th:value="${barbearia.endereco}" name="endereco" required/>
+            <br>
+            <label>Telefone:</label>
+            <input type="text" placeholder="Telefone" th:value="${barbearia.telefone}" name="telefone" required/>
+            <br>
+            <label>CNPJ:</label>
+            <input type="text" placeholder="CNPJ" th:value="${barbearia.cnpj}" name="cnpj" required/>
+            
+            <input type="hidden" th:value="${barbearia.funcionarios}" th:field="${barbearia.funcionarios}" name="livros" />
+
+            <br>
+            <br>
+            <input type="submit" value="Salvar" />
+            <input type="reset" value="Cancelar" />
+        </form>
+    </div>
+</body>
+</html>

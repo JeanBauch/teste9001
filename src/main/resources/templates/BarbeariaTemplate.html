@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/style.css">
+    <title>Autores</title>
+</head>
+<body>
+    <div class="templatePadrao">
+        <h1>Cadastro da Barbearia</h1>
+        <a href="/">Menu</a>
+        <br>
+        <div th:if="${erro}">
+            <strong th:text="${erro}"></strong>
+            <span id="x" onclick="this.parentElement.style.display='none';">&times;</span>
+        </div>
+        <div th:if="${erro2}">
+            <strong th:text="${erro2}"></strong>
+            <span id="x" onclick="this.parentElement.style.display='none';">&times;</span>
+        </div>
+
+        <br>
+        <form th:action="@{/salvarBarbearia}" method="POST">
+            <label>Nome: </label>
+            <input type="text" placeholder="Insira o nome" name="nome" required/>
+            <label>Endereço: </label>
+            <input type="text" placeholder="Insira o endereço" name="endereco" required/>
+            <label>Telefone: </label>
+            <input type="text" placeholder="Insira o telefone" name="telefone" required/>
+            <label>CNPJ: </label>
+            <input type="text" placeholder="Insira o CNPJ" name="cnpj" required/>
+            <br>
+            <br>
+            <input type="submit" value="Salvar"/>
+        </form>
+
+        <br>
+        <br>
+
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Endereço</th>
+                <th>Telefone</th>
+                <th>CNPJ</th>
+                <th>Detalhes</th>
+                <th>Editar</th>
+                <th>Remover</th>
+            </tr>
+            <tr th:each="barbearia : ${barbearias}">
+                <td th:text="${barbearia.idBarbearia}"></td>
+                <td th:text="${barbearia.nome}"></td>
+                <td th:text="${barbearia.endereco}"></td>
+                <td th:text="${barbearia.telefone}"></td>
+                <td th:text="${barbearia.cnpj}"></td>
+                <td> <a th:href="@{'/detalhesBarbearia/' + ${barbearia.idBarbearia}}">Detalhes</a> </td>
+                <td> <a th:href="@{'/editarBarbearia?idB=' + ${barbearia.idBarbearia}}">Editar</a> </td>
+                <td> <a th:href="@{'/removerBarbearia?idB=' + ${barbearia.idBarbearia}}">Remover</a> </td>
+            </tr>
+        </table>
+    </div>    
+</body>
+</html>

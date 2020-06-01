@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/style.css">
+    <title>Editar Barbeiros</title>
+</head>
+<body>
+    <div class="edit">
+        <h1>Editar Barbeiros</h1>
+        <a href="/"> Menu</a>
+        <a href="/barbeiro/listar">Voltar</a>
+        <br>
+        <br>
+        <form th:action="@{/salvarBarbeiro}" th:object="${barbeiro}" method="POST" id="formBarbeiro">
+            
+            <label>ID:</label> <span th:text="${barbeiro.idBarbeiro}"></span>
+            <br>
+            <input type="hidden" th:value="${barbeiro.idBarbeiro}" th:field="${barbeiro.idBarbeiro}" name="idBarbeiro" />
+            
+            <label>Nome:</label>
+            <input type="text" placeholder="Nome" th:value="${barbeiro.nome}" name="nome" required/>
+            <br>
+            <label>Telefone:</label>
+            <input type="text" placeholder="Telefone" th:value="${barbeiro.telefone}" name="telefone" required/>
+            <br>
+            <label>Idade:</label>
+            <input type="text" placeholder="Idade" th:value="${barbeiro.idade}" name="idade" required/>
+            <br>
+            <label>Salário:</label>
+            <input type="text" placeholder="Salário" th:value="${barbeiro.salario}" name="salario" required/>
+
+            <label>Barbearia:</label>
+            <select th:field ="${barbeiro.barbearia}" required>
+                <option value="">Escolha a barbearia</option>
+                <option th:each="barbearia: ${barbearias}"
+                    th:value="${barbearia.idBarbearia}"
+                    th:text="${barbearia.nome}">
+                </option>
+            </select>    
+
+            <br>
+            <br>
+            <input type="submit" value="Salvar" />
+            <input type="reset" value="Cancelar" />
+            <br>
+            <br>
+        Clientes:
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Telefone</th>
+                <th>CPF</th>
+                <th>Idade</th>
+            </tr>
+            <tr th:each="cliente : ${barbeiro.clientes}">
+                <td th:text="${cliente.idCliente}"></td>
+                <td th:text="${cliente.nome}"></td>
+                <td th:text="${cliente.telefone}"></td>
+                <td th:text="${cliente.cpf}"></td>
+                <td th:text="${cliente.idade}"></td>
+                <td> <a th:href="@{'/removerBarbeiroCliente/' + ${barbeiro.idBarbeiro} + '/' + ${cliente.idCliente}}">Remover</a> </td>
+            </tr>
+        </table>
+
+        </form>
+    </div>
+</body>
+</html>
