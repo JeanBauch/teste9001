@@ -31,14 +31,11 @@
             <label>Salário:</label>
             <input type="text" placeholder="Salário" th:value="${barbeiro.salario}" name="salario" required/>
 
-            <label>Barbearia:</label>
-            <select th:field ="${barbeiro.barbearia}" required>
-                <option value="">Escolha a barbearia</option>
-                <option th:each="barbearia: ${barbearias}"
-                    th:value="${barbearia.idBarbearia}"
-                    th:text="${barbearia.nome}">
-                </option>
-            </select>    
+            <input type="hidden" th:value="${barbeiro.agendamento}" th:field="${barbeiro.agendamento}" name="agendamento" />
+            <input type="hidden" th:value="${barbeiro.especializacao}" th:field="${barbeiro.especializacao}" name="especializacao" />
+
+
+               
 
             <br>
             <br>
@@ -46,24 +43,43 @@
             <input type="reset" value="Cancelar" />
             <br>
             <br>
-        Clientes:
-        <table>
-            <tr>
-                <th>ID</th>
-                <th>Nome</th>
-                <th>Telefone</th>
-                <th>CPF</th>
-                <th>Idade</th>
-            </tr>
-            <tr th:each="cliente : ${barbeiro.clientes}">
-                <td th:text="${cliente.idCliente}"></td>
-                <td th:text="${cliente.nome}"></td>
-                <td th:text="${cliente.telefone}"></td>
-                <td th:text="${cliente.cpf}"></td>
-                <td th:text="${cliente.idade}"></td>
-                <td> <a th:href="@{'/removerBarbeiroCliente/' + ${barbeiro.idBarbeiro} + '/' + ${cliente.idCliente}}">Remover</a> </td>
-            </tr>
-        </table>
+
+            Especializacoes:
+            <table>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Descricao</th>
+                </tr>
+                
+                <tr th:each="especializacao : ${barbeiro.especializacao}">
+                    <td th:text="${especializacao.idEspecializacao}"></td>
+                    <td th:text="${especializacao.nome}"></td>
+                    <td th:text="${especializacao.descricao}"></td>
+                    <td> <a th:href="@{'/removerBarbeiroEspecializacao/' + ${barbeiro.idBarbearia} + '/' + ${especializacao.idEspecializacao}}">Remover</a> </td>
+
+                </tr>
+                
+            </table>
+            <br>
+            <br>
+            Agendamentos:
+            <table>
+                <tr>
+                    <th>ID</th>
+                    <th>Data</th>
+                    <th>Hora</th>
+                    <th>Remover</th>
+                </tr>
+                
+                <tr th:each="agendamento : ${barbeiro.agendamento}">
+                    <td th:text="${agendamento.idAgendamento}"></td>
+                    <td th:text="${agendamento.data}"></td>
+                    <td th:text="${agendamento.hora}"></td>
+                    <td> <a th:href="@{'/removerBarbeiroAgendamento/' + ${barbeiro.idBarbearia} + '/' + ${agendamento.idAgendamento}}">Remover</a> </td>
+                </tr>
+                
+            </table>
 
         </form>
     </div>

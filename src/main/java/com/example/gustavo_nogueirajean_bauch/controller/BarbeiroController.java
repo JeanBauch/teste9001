@@ -2,11 +2,12 @@ package com.example.gustavo_nogueirajean_bauch.controller;
 
 import java.util.List;
 
+import com.example.gustavo_nogueirajean_bauch.entity.Agendamento;
 import com.example.gustavo_nogueirajean_bauch.entity.Barbeiro;
-import com.example.gustavo_nogueirajean_bauch.entity.Cliente;
-import com.example.gustavo_nogueirajean_bauch.service.BarbeariaService;
+import com.example.gustavo_nogueirajean_bauch.entity.Especializacao;
+import com.example.gustavo_nogueirajean_bauch.service.AgendamentoService;
 import com.example.gustavo_nogueirajean_bauch.service.BarbeiroService;
-import com.example.gustavo_nogueirajean_bauch.service.ClienteService;
+import com.example.gustavo_nogueirajean_bauch.service.EspecializacaoService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,11 +24,12 @@ public class BarbeiroController {
     @Autowired
     private BarbeiroService beS;
 
-    @Autowired
-    private BarbeariaService baS;
 
     @Autowired
-    private ClienteService cs;
+    private AgendamentoService as;
+
+    @Autowired
+    private EspecializacaoService es;
 
     @GetMapping("/barbeiro/listar")
     public ModelAndView getBarbeiroMV()
@@ -35,8 +37,7 @@ public class BarbeiroController {
         ModelAndView mv = new ModelAndView("BarbeiroTemplate");
         mv.addObject("barbeiro", new Barbeiro());
         mv.addObject("barbeiros", beS.getBarbeiro());
-        mv.addObject("barbearias", baS.getBarbearia());
-        mv.addObject("clientes", cs.getCliente());
+        mv.addObject("agendamentos", as.getAgendamento());
         
         return mv;
     }
@@ -47,25 +48,16 @@ public class BarbeiroController {
         ModelAndView mv = new ModelAndView("BarbeiroDetalhesView");
         Barbeiro barbeiro = beS.getBarbeiroaById(id);
         mv.addObject("barbeiro", barbeiro);
-
-        List<Cliente> clientesNaoAssociados = cs.getCliente();
-        clientesNaoAssociados.removeAll(barbeiro.getClientes());
-        mv.addObject("clientes", clientesNaoAssociados);
         
+        List<Especializacao> especializacaoNaoAssociada =  es.getEspecializacao();
+        especializacaoNaoAssociada.removeAll(barbeiro.getEspecializacao());
+        mv.addObject("especializacoes", especializacaoNaoAssociada);
+
+
         return mv;
     }
 
-    @PostMapping("/associarCliente")
-    public String saveBarbeiroCliente(@ModelAttribute Cliente cliente, @RequestParam Integer codB)
-    {
-        Barbeiro barbeiro = beS.getBarbeiroaById(codB);
-        cliente = cs.getClienteById(cliente.getIdCliente());
-
-        barbeiro.getClientes().add(cliente);
-        beS.addBarbeiro(barbeiro);
-
-        return "redirect:/detalhesBarbeiro/" + codB;
-    }
+    
 
     @PostMapping("/salvarBarbeiro")
     public String saveBarbeiroMV(@ModelAttribute Barbeiro barbeiro, RedirectAttributes attributes)
@@ -83,19 +75,30 @@ public class BarbeiroController {
 
         Barbeiro barbeiro = beS.getBarbeiroaById(idB);
         mv.addObject("barbeiro", barbeiro);
-        mv.addObject("barbearias", baS.getBarbearia());
-        mv.addObject("clientes", cs.getCliente());
+        mv.addObject("agendamentos", as.getAgendamento());
         
         return mv;
     }
 
-    @GetMapping("/removerBarbeiroCliente/{idB}/{idC}")
-    public String removerBarbeiroC(@PathVariable Integer idB, @PathVariable Integer idC)
+    @GetMapping("/removerBarbeiroAgendamento/{idB}/{idA}")
+    public String removerBarbeiroC(@PathVariable Integer idB, @PathVariable Integer idA)
     {
         Barbeiro barbeiro = beS.getBarbeiroaById(idB);
-        Cliente cliente = cs.getClienteById(idC);
+        Agendamento agendamento = as.getAgendamentoById(idA);
 
-        barbeiro.getClientes().remove(cliente);
+        barbeiro.getAgendamento().remove(agendamento);
+        beS.addBarbeiro(barbeiro);
+
+        return "redirect:/editarBarbeiro?idB=" + idB;
+    }
+
+    @GetMapping("/removerBarbeiroEspecializacao/{idB}/{idE}")
+    public String removerBarbeiroE(@PathVariable Integer idB, @PathVariable Integer idE)
+    {
+        Barbeiro barbeiro = beS.getBarbeiroaById(idB);
+        Especializacao especializacao = es.getEspecializacaoById(idE);
+
+        barbeiro.getEspecializacao().remove(especializacao);
         beS.addBarbeiro(barbeiro);
 
         return "redirect:/editarBarbeiro?idB=" + idB;

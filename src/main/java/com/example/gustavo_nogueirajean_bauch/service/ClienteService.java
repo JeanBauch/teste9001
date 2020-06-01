@@ -33,8 +33,13 @@ public class ClienteService {
         return false;
     }
 
-    public void removeCliente(Cliente c)
+    public boolean removeCliente(Cliente c)
     {
-        cr.delete(c);
+        if(c.getAgendamento().size() == 0)
+        {
+            cr.delete(c);
+            return true;
+        }
+        return false;
     }           
 }

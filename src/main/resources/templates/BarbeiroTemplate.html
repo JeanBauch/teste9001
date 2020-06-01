@@ -8,7 +8,7 @@
 </head>
 <body>
     <div class="templatePadrao">
-        <h1>Cadastro de Funcionario</h1>
+        <h1>Barbeiro</h1>
     <a href="/">Menu</a>
     <br>
     <div th:if="${erro}">
@@ -29,14 +29,7 @@
         <input type="text" placeholder="Insira o salário" name="salario" required/>
         <br>
         <br>
-        <label>Barbearia: </label>
-        <select th:field="${barbeiro.barbearia}" required>
-            <option value="">Escolha a barbearia</option>
-            <option th:each="barbearia : ${barbearias}"
-                        th:value="${barbearia.idBarbearia}"
-                        th:text="${barbearia.nome}">
-            </option>
-        </select>
+        
         <br>
         <br>
         
@@ -54,7 +47,6 @@
             <th>Telefone</th>
             <th>Idade</th>
             <th>Salário</th>
-            <th>Editora</th>
             <th>Detalhes</th>
             <th>Editar</th>
             <th>Remover</th>
@@ -66,7 +58,6 @@
             <td th:text="${barbeiro.telefone}"></td>
             <td th:text="${barbeiro.idade}"></td>
             <td th:text="${barbeiro.salario}"></td>
-            <td th:text="${barbeiro.barbearia?.nome}"></td>
             <td> <a th:href="@{'/detalhesBarbeiro/' + ${barbeiro.idBarbeiro}}">Detalhes</a> </td>
             <td> <a th:href="@{'/editarBarbeiro?idB=' + ${barbeiro.idBarbeiro}}">Editar</a> </td>
             <td> <a th:href="@{'/removerBarbeiro?idB=' + ${barbeiro.idBarbeiro}}">Remover</a> </td>

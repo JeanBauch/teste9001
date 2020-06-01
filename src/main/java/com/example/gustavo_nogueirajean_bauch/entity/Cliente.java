@@ -8,8 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Cliente implements Serializable {
@@ -23,19 +22,9 @@ public class Cliente implements Serializable {
     private String cpf;
     private int idade;
 
-    @ManyToMany
-    @JoinTable(
-        name="BarbeiroCliente",
-        joinColumns = @JoinColumn(
-            name = "idCliente",
-            referencedColumnName = "idCliente" 
-        ),
-        inverseJoinColumns = @JoinColumn(
-            name = "idBarbeiro",
-            referencedColumnName = "idBarbeiro"
-        )
-    )
-    private List<Barbeiro> barbeiros;
+    @OneToMany
+    @JoinColumn(name = "AgendamentoCliente")
+    private List<Agendamento> agendamento;
 
     public int getIdCliente() {
         return idCliente;
@@ -71,13 +60,7 @@ public class Cliente implements Serializable {
         this.idade = idade;
     }
 
-    public List<Barbeiro> getBarbeiros() {
-        return barbeiros;
-    }
-
-    public void setBarbeiros(List<Barbeiro> barbeiros) {
-        this.barbeiros = barbeiros;
-    }
+    
 
     public String getCpf() {
         return cpf;
@@ -85,5 +68,13 @@ public class Cliente implements Serializable {
 
     public void setCpf(String cpf) {
         this.cpf = cpf;
+    }
+
+    public List<Agendamento> getAgendamento() {
+        return agendamento;
+    }
+
+    public void setAgendamento(List<Agendamento> agendamento) {
+        this.agendamento = agendamento;
     }
 }

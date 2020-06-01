@@ -23,37 +23,55 @@
 
         <br>
         <br>
-
-        <form th:action="@{/associarCliente(codB=${barbeiro.idBarbeiro})}" method="POST">
-            <label><b>Cliente: </b></label>
-            <select name="idCliente" required>
-                <option value="">Escolha o cliente</option>
-                <option th:each="cliente:${clientes}"
-                            th:value="${cliente.idCliente}"
-                            th:text="${cliente.nome}">
+        <form th:action="@{/associarEspecializacao(codB=${barbeiro.idBarbeiro})}" method="POST">
+            <label><b>Especializacoes: </b></label>
+            <select name="idEspecializacao" required>
+                <option value="">Escolha a especializacao</option>
+                <option th:each="especializacao:${especializacoes}"
+                            th:value="${especializacao.idEspecializacao}"
+                            th:text="${especializacao.nome}">
                 </option>
             </select>
-            <input type="submit" value="Associar Cliente" />
+            <input type="submit" value="Associar especializacao" />
         </form>
+
         <br>
-        Clientes:
+        <br>
+
+        Especializacoes:
         <table>
             <tr>
                 <th>ID</th>
                 <th>Nome</th>
-                <th>Telefone</th>
-                <th>CPF</th>
-                <th>Idade</th>
+                <th>Descricao</th>
             </tr>
             
-            <tr th:each="cliente : ${barbeiro.clientes}">
-                <td th:text="${cliente.idCliente}"></td>
-                <td th:text="${cliente.nome}"></td>
-                <td th:text="${cliente.telefone}"></td>
-                <td th:text="${cliente.cpf}"></td>
-                <td th:text="${cliente.idade}"></td>
+            <tr th:each="especializacao : ${barbeiro.especializacao}">
+                <td th:text="${especializacao.idEspecializacao}"></td>
+                <td th:text="${especializacao.nome}"></td>
+                <td th:text="${especializacao.descricao}"></td>
             </tr>
+            
+        </table>
 
+
+        <br>
+        <br>
+
+        Agendamentos:
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Data</th>
+                <th>Hora</th>
+            </tr>
+            
+            <tr th:each="agendamento : ${barbeiro.agendamento}">
+                <td th:text="${agendamento.idAgendamento}"></td>
+                <td th:text="${agendamento.data}"></td>
+                <td th:text="${agendamento.hora}"></td>
+            </tr>
+            
         </table>
     </div>
 </body>

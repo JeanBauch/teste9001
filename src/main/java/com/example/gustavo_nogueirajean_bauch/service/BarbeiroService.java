@@ -35,7 +35,7 @@ public class BarbeiroService {
 
     public boolean removeBarbeiro(Barbeiro b)
     {
-        if(b.getClientes().size() == 0)
+        if(b.getAgendamento().size() == 0)
         {
             beR.delete(b);
             return true;

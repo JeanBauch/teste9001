@@ -32,7 +32,7 @@
             <label>Idade:</label>
             <input type="text" placeholder="Idade" th:value="${cliente.idade}" name="idade" required/>
             
-            <input type="hidden" th:value="${cliente.barbeiros}" th:field="${cliente.barbeiros}" name="barbeiros" />
+            <input type="hidden" th:value="${cliente.agendamento}" th:field="${cliente.agendamento}" name="barbeiros" />
 
             <br>
             <br>
@@ -40,27 +40,27 @@
             <input type="reset" value="Cancelar" />
             <br>
             <br>
-            Barbeiros:
+
+            Agendamentos:
             <table>
                 <tr>
                     <th>ID</th>
-                    <th>Nome</th>
-                    <th>Telefone</th>
-                    <th>Idade</th>
-                    <th>Salário</th>
+                    <th>Data</th>
+                    <th>Hora</th>
+                    <th>Remover</th>
                 </tr>
-                <tr th:each="barbeiro : ${cliente.barbeiros}">
-                    <td th:text="${barbeiro.idBarbeiro}"></td>
-                    <td th:text="${barbeiro.nome}"></td>
-                    <td th:text="${barbeiro.telefone}"></td>
-                    <td th:text="${barbeiro.idade}"></td>
-                    <td th:text="${barbeiro.salario}"></td>
-                    <td th:text="${barbeiro.barbearia.nome}"></td>
-                    <td> <a th:href="@{'/removerClienteBarbearia/' + ${cliente.idCliente} + '/' + ${barbeiro.idBarbeiro}}">Remover</a> </td>
+                
+                <tr th:each="agendamento : ${cliente.agendamento}">
+                    <td th:text="${agendamento.idAgendamento}"></td>
+                    <td th:text="${agendamento.data}"></td>
+                    <td th:text="${agendamento.hora}"></td>
+                    <td> <a th:href="@{'/removerClienteAgendamento/' + ${cliente.idCliente} + '/' + ${agendamento.idAgendamento}}">Remover</a> </td>
                 </tr>
-
+                
             </table>
         </form>
+
+
     </div>
 </body>
 </html>

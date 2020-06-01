@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 
 
@@ -26,23 +26,23 @@ public class Barbeiro implements Serializable{
     private int idade;
     private double salario;
 
-    @ManyToOne
-    @JoinColumn(name="BarbeariaBarbeiro")
-    private Barbearia barbearia;
+    @OneToMany
+    @JoinColumn(name="AgendamentoBarbeiro")
+    private List<Agendamento> agendamento;
 
     @ManyToMany
     @JoinTable(
-        name="BarbeiroCliente",
+        name="BarbeiroEspecializacao",
         joinColumns = @JoinColumn(
-            name = "idBarbeiro",
-            referencedColumnName = "idBarbeiro" 
+            name="idBarbeiro",
+            referencedColumnName = "idBarbeiro"
         ),
         inverseJoinColumns = @JoinColumn(
-            name = "idCliente",
-            referencedColumnName = "idCliente"
+            name="idEspecializacao",
+            referencedColumnName = "idEspecializacao"
         )
     )
-    private List<Cliente> clientes;
+    private List<Especializacao> especializacao;
 
     public int getIdBarbeiro() {
         return idBarbeiro;
@@ -84,20 +84,24 @@ public class Barbeiro implements Serializable{
         this.salario = salario;
     }
 
-    public Barbearia getBarbearia() {
-        return barbearia;
+    public List<Agendamento> getAgendamento() {
+        return agendamento;
     }
 
-    public void setBarbearia(Barbearia barbearia) {
-        this.barbearia = barbearia;
+    public void setAgendamento(List<Agendamento> agendamento) {
+        this.agendamento = agendamento;
     }
 
-    public List<Cliente> getClientes() {
-        return clientes;
+    public List<Especializacao> getEspecializacao() {
+        return especializacao;
     }
 
-    public void setClientes(List<Cliente> clientes) {
-        this.clientes = clientes;
+    public void setEspecializacao(List<Especializacao> especializacao) {
+        this.especializacao = especializacao;
     }
+
+    
+
+    
 
 }
