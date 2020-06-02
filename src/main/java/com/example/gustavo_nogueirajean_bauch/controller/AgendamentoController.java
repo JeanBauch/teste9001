@@ -1,9 +1,12 @@
 package com.example.gustavo_nogueirajean_bauch.controller;
 
+import java.util.ArrayList;
+
 import com.example.gustavo_nogueirajean_bauch.entity.Agendamento;
+import com.example.gustavo_nogueirajean_bauch.entity.Barbeiro;
 import com.example.gustavo_nogueirajean_bauch.service.AgendamentoService;
-import com.example.gustavo_nogueirajean_bauch.service.BarbeiroService;
 import com.example.gustavo_nogueirajean_bauch.service.ClienteService;
+import com.example.gustavo_nogueirajean_bauch.service.EspecializacaoService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,7 +24,7 @@ public class AgendamentoController {
     private AgendamentoService as;
 
     @Autowired
-    private BarbeiroService bs;
+    private EspecializacaoService es;
 
     @Autowired
     private ClienteService cs;
@@ -32,7 +35,7 @@ public class AgendamentoController {
         ModelAndView mv = new ModelAndView("AgendamentoTemplate");
         mv.addObject("agendamento", new Agendamento());
         mv.addObject("agendamentos", as.getAgendamento());
-        mv.addObject("barbeiros", bs.getBarbeiro());
+        mv.addObject("especializacoes", es.getEspecializacao());
         mv.addObject("clientes", cs.getCliente());
         return mv;
     }
@@ -46,11 +49,92 @@ public class AgendamentoController {
         return mv;
     }
 
+    @GetMapping("/salvarAgendamentoGet")
+    public ModelAndView saveAgendamentoGet()
+    {
+        ModelAndView mv = new ModelAndView("AgendamentoTemplate2");
+        return mv;
+    }
+
     @PostMapping("/salvarAgendamento")
     public String saveAgendamentoMV(@ModelAttribute Agendamento agendamento, RedirectAttributes attributes)
     {
-        as.addAgendamento(agendamento);
+        boolean resp = as.addAgendamento(agendamento);
+        if(!resp)
+            attributes.addFlashAttribute("erro", "Agendamento inserido fora do tempo de expediente ou o cliente já tem um agendamento nesse horário/próximo a ele");
         return "redirect:/agendamento/listar";
+    }
+
+    @PostMapping("/salvarAgendamento2")
+    public String saveAgendamento2MV(@ModelAttribute Agendamento agendamento, RedirectAttributes attributes)
+    {
+        ArrayList<Barbeiro> barbeiroDisp = new ArrayList<>();
+        ArrayList<Barbeiro> barbeiroIndisp = new ArrayList<>();
+        boolean temp, temp2;
+        attributes.addFlashAttribute("agendamento", agendamento);
+
+        int horaAgendamentoNow = agendamento.getHora().getHour()*60;
+        horaAgendamentoNow += agendamento.getHora().getMinute();
+
+
+        for (Barbeiro barbeiro : agendamento.getEspecializacao().getBarbeiros()) {
+            if(as.getAgendamento().size() != 0)
+            {
+                for (Agendamento agendamentos : as.getAgendamento()) {
+                    temp = false;
+                    temp2 = false;
+
+                    int horaAgendamentoAtual = agendamentos.getHora().getHour()*60;
+                    horaAgendamentoAtual += agendamentos.getHora().getMinute();
+
+                    int difTempo = horaAgendamentoNow - horaAgendamentoAtual;
+                    
+                    if(difTempo < 30 && difTempo > -30)
+                        temp = true;
+                    
+                    String dataNow = agendamento.getData().toString();
+                    String datas = agendamentos.getData().toString();
+
+
+                    if(dataNow.equals(datas))
+                        temp2 = true;
+                    
+
+                    if(agendamentos.getBarbeiro() == barbeiro && temp2 && temp)
+                    {
+                        if(!barbeiroIndisp.contains(barbeiro))
+                        {
+                            while(barbeiroDisp.remove(barbeiro))
+                            {
+
+                            }
+                            barbeiroIndisp.add(barbeiro);
+                        }
+                            
+                    }
+                    else
+                    {
+                        if(!barbeiroDisp.contains(barbeiro))
+                        {
+                            if(!barbeiroIndisp.contains(barbeiro))
+                            barbeiroDisp.add(barbeiro);
+                        }
+                            
+                    }
+                        
+                }
+            }
+            else
+            {
+                barbeiroDisp.add(barbeiro);
+            }
+            
+        }
+
+        attributes.addFlashAttribute("barbeiroDisp", barbeiroDisp);
+        attributes.addFlashAttribute("barbeiroIndisp", barbeiroIndisp);
+
+        return "redirect:/salvarAgendamentoGet";
     }
 
     @GetMapping("/removerAgendamento")

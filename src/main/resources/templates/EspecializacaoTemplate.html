@@ -22,6 +22,8 @@
             <input type="text" placeholder="Insira o nome" name="nome" required/>
             <label>Descrição: </label>
             <input type="text" placeholder="Insira os detalhes" name="descricao" required/>
+            <label>Preço por serviço: </label>
+            <input type="text" placeholder="Insira o valor" name="preco" required/>
             
             <br>
             <br>
@@ -38,6 +40,7 @@
                 <th>ID</th>
                 <th>Nome</th>
                 <th>Descrição</th>
+                <th>Preço por serviço</th>
                 <th>Detalhes</th>
                 <th>Editar</th>
                 <th>Remover</th>
@@ -48,6 +51,7 @@
                 <td th:text="${especializacao.idEspecializacao}"></td>
                 <td th:text="${especializacao.nome}"></td>
                 <td th:text="${especializacao.descricao}"></td>
+                <td th:text="${especializacao.preco}"></td>
                 <td> <a th:href="@{'/detalhesEspecializacao/' + ${especializacao.idEspecializacao}}">Detalhes</a> </td>
                 <td> <a th:href="@{'/editarEspecializacao?idB=' + ${especializacao.idEspecializacao}}">Editar</a> </td>
                 <td> <a th:href="@{'/removerEspecializacao?idB=' + ${especializacao.idEspecializacao}}">Remover</a> </td>

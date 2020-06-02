@@ -66,7 +66,7 @@ public class EspecializacaoController {
     {
         boolean resp = es.addEspecializacao(e);
         if(!resp)
-            attributes.addFlashAttribute("erro", "Campo iniciado com SPACE");
+            attributes.addFlashAttribute("erro", "Campo iniciado com SPACE ou valor negativo/nulo");
         return "redirect:/especializacao/listar";
     }
 
@@ -101,7 +101,7 @@ public class EspecializacaoController {
         boolean resp = es.removeEspecializacao(especializacao);
 
         if(!resp)
-            attributes.addFlashAttribute("erro", "Ainda possui barbeiros cadastrados com essa especialidade");
+            attributes.addFlashAttribute("erro", "Ainda possui barbeiros ou agendamentos cadastrados com essa especialidade");
         return "redirect:/especializacao/listar";
     }
 }

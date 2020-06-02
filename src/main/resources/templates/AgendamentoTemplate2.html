@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/style.css">
+    <title>Agendamento</title>
+</head>
+<body>
+    <div class="templatePadrao">
+        <h1>Agendamento</h1>
+    <a href="/">Menu</a>
+    <br>
+    <br>
+    <p>Cada serviço consome o tempo de 30 minutos</p>
+    <br><br>
+    <br>
+    <div th:if="${erro}">
+        <strong th:text="${erro}"></strong>
+        <span id="x" onclick="this.parentElement.style.display='none';">&times;</span>
+    </div>
+    <br>
+    <form th:action="@{/salvarAgendamento}" th:object="${agendamento}" method="POST">
+        
+        <label>Barbeiros disponiveis: </label>
+        <select th:field="${agendamento.barbeiro}" required>
+            <option value="">Escolha o barbeiro</option>
+            <option th:each="barbeiro : ${barbeiroDisp}"
+                        th:value="${barbeiro.idBarbeiro}"
+                        th:text="${barbeiro.nome}">
+            </option>
+        </select>
+        <input type="hidden" th:value="${agendamento.cliente}" th:field="${agendamento.cliente}" name="cliente" />
+        <input type="hidden" th:value="${agendamento.hora}" th:field="${agendamento.hora}" name="hora" />
+        <input type="hidden" th:value="${agendamento.data}" th:field="${agendamento.data}" name="data" />
+        <input type="hidden" th:value="${agendamento.especializacao}" th:field="${agendamento.especializacao}" name="especializacao" />
+
+
+
+        <br><br><br>
+        <label>Barbeiros Indisponiveis: </label> 
+    <table>
+        <tr>
+            <th>Nome</th>
+            <th>Telefone</th>
+            
+        </tr>
+        <tr th:each="barbeiroI : ${barbeiroIndisp}">
+            <td th:text="${barbeiroI.nome}"></td>
+            <td th:text="${barbeiroI.telefone}"></td>
+        </tr>
+    </table>
+
+        <br>
+        <br>
+        
+        <br>
+        <br>
+        
+        <input id="salvar" type="submit" value="Salvar"/>
+
+    </form>
+
+    <br>
+    <br>
+    </div>
+</body>
+</html>

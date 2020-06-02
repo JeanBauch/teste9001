@@ -31,6 +31,10 @@ public class Agendamento implements Serializable{
     @ManyToOne
     @JoinColumn(name = "AgendamentoCliente")
     private Cliente cliente;
+
+    @ManyToOne
+    @JoinColumn(name="AgendamentoEspecializacao")
+    private Especializacao especializacao;
     
     
 
@@ -72,6 +76,14 @@ public class Agendamento implements Serializable{
 
     public void setHora(LocalTime hora) {
         this.hora = hora;
+    }
+
+    public Especializacao getEspecializacao() {
+        return especializacao;
+    }
+
+    public void setEspecializacao(Especializacao especializacao) {
+        this.especializacao = especializacao;
     }
 
     

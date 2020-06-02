@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.JoinColumn;
 
 
@@ -22,6 +23,7 @@ public class Especializacao implements Serializable{
     private int idEspecializacao;
     private String nome;
     private String descricao;
+    private double preco;
 
     @ManyToMany
     @JoinTable(
@@ -35,7 +37,11 @@ public class Especializacao implements Serializable{
             referencedColumnName = "idBarbeiro"
         )
     )
-    List<Barbeiro> barbeiros;
+    private List<Barbeiro> barbeiros;
+
+    @OneToMany
+    @JoinColumn(name="AgendamentoEspecializacao")
+    private List<Agendamento> agendamentos;
 
     public int getIdEspecializacao() {
         return idEspecializacao;
@@ -68,4 +74,23 @@ public class Especializacao implements Serializable{
     public void setBarbeiros(List<Barbeiro> barbeiros) {
         this.barbeiros = barbeiros;
     }
+
+    public List<Agendamento> getAgendamentos() {
+        return agendamentos;
+    }
+
+    public void setAgendamentos(List<Agendamento> agendamentos) {
+        this.agendamentos = agendamentos;
+    }
+
+    public double getPreco() {
+        return preco;
+    }
+
+    public void setPreco(double preco) {
+        this.preco = preco;
+    }
+
+    
+    
 }

@@ -25,7 +25,7 @@ public class EspecializacaoService {
 
     public boolean addEspecializacao(Especializacao e)
     {
-        if(e.getNome().charAt(0) != ' ' && e.getDescricao().charAt(0) != ' ')
+        if(e.getNome().charAt(0) != ' ' && e.getDescricao().charAt(0) != ' ' && e.getPreco() > 0)
         {
             es.save(e);
             return true;
@@ -35,7 +35,7 @@ public class EspecializacaoService {
 
     public boolean removeEspecializacao(Especializacao e)
     {
-        if(e.getBarbeiros().size() == 0)
+        if(e.getBarbeiros().size() == 0 && e.getAgendamentos().size() == 0)
         {
             es.delete(e);
             return true;
