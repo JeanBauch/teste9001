@@ -56,7 +56,7 @@
                     <td th:text="${especializacao.idEspecializacao}"></td>
                     <td th:text="${especializacao.nome}"></td>
                     <td th:text="${especializacao.descricao}"></td>
-                    <td> <a th:href="@{'/removerBarbeiroEspecializacao/' + ${barbeiro.idBarbearia} + '/' + ${especializacao.idEspecializacao}}">Remover</a> </td>
+                    <td> <a th:href="@{'/removerBarbeiroEspecializacao/' + ${barbeiro.idBarbeiro} + '/' + ${especializacao.idEspecializacao}}">Remover</a> </td>
 
                 </tr>
                 
@@ -76,7 +76,7 @@
                     <td th:text="${agendamento.idAgendamento}"></td>
                     <td th:text="${agendamento.data}"></td>
                     <td th:text="${agendamento.hora}"></td>
-                    <td> <a th:href="@{'/removerBarbeiroAgendamento/' + ${barbeiro.idBarbearia} + '/' + ${agendamento.idAgendamento}}">Remover</a> </td>
+                    <td> <a th:href="@{'/removerBarbeiroAgendamento/' + ${barbeiro.idBarbeiro} + '/' + ${agendamento.idAgendamento}}">Remover</a> </td>
                 </tr>
                 
             </table>

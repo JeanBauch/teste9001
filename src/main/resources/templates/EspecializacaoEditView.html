@@ -25,11 +25,12 @@
             <label>Descricao:</label>
             <input type="text" placeholder="Descricao" th:value="${especializacao.descricao}" name="descricao" required/>
             <br>
+            
+            <label>Valor por serviço</label>
+            <input type="text" placeholder="preco" th:value="${especializacao.preco}" name="preco" required/>
+            <br>
 
             <input type="hidden" th:value="${especializacao.barbeiros}" th:field="${especializacao.barbeiros}" name="barbeiros" />
-
-
-               
 
             <br>
             <br>

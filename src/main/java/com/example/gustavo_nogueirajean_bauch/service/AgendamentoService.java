@@ -27,7 +27,7 @@ public class AgendamentoService {
     {
         int horaAgendamentoNow = a.getHora().getHour()*60;
         horaAgendamentoNow += a.getHora().getMinute();
-        if(horaAgendamentoNow < 540 || horaAgendamentoNow > 1080)
+        if(horaAgendamentoNow < 540 || horaAgendamentoNow > 1050)
             return false;
         for (Agendamento ag : ar.findAll()) {
             if(a.getCliente() == ag.getCliente())
