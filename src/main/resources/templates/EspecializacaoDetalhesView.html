@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/style.css">
+    <title>Detalhes Especializacao</title>
+</head>
+<body>
+    <div class="detalhes">
+        <h1>Detalhes das Especializações</h1>
+        <a href="/">Menu</a>
+        <a href="/especializacao/listar">Especialização</a>
+
+        <br>
+        <br>
+
+        <b>ID da Especialização: </b> <span th:text="${especializacao.idEspecializacao}"></span>
+        <br><b>Nome: </b> <span th:text="${especializacao.nome}"></span>
+        <br><b>Descrição: </b> <span th:text="${especializacao.descricao}"></span>
+
+        <br>
+        <br>
+        <form th:action="@{/associarBarbeiro(codE=${especializacao.idEspecializacao})}" method="POST">
+            <label><b>Barbeiros: </b></label>
+            <select name="idBarbeiro" required>
+                <option value="">Escolha o barbeiro</option>
+                <option th:each="barbeiro:${barbeiros}"
+                            th:value="${barbeiro.idBarbeiro}"
+                            th:text="${barbeiro.nome}">
+                </option>
+            </select>
+            <input type="submit" value="Associar barbeiro" />
+        </form>
+
+        <br>
+        <br>
+
+        Barbeiros:
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Telefone</th>
+		<th>Idade</th>
+		<th>Salário</th>
+            </tr>
+            
+            <tr th:each="barbeiro : ${especializacao.barbeiros}">
+                <td th:text="${barbeiro.idBarbeiro}"></td>
+                <td th:text="${barbeiro.nome}"></td>
+                <td th:text="${barbeiro.telefone}"></td>
+		<td th:text="${barbeiro.idade}"></td>
+		<td th:text="${barbeiro.salario}"></td>
+            </tr>
+            
+        </table>
+    </div>
+</body>
+</html>

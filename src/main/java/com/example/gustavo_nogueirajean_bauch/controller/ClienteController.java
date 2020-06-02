@@ -42,15 +42,7 @@ public class ClienteController {
         return mv;
     }
 
-    @GetMapping("/cadastrarAgendamentoPorCliente/barbearia/{id}")
-    public ModelAndView cadastroAgendamentoPorClienteMV(@PathVariable(name = "id") Integer id)
-    {
-        ModelAndView mv = new ModelAndView("ClienteAgendamentoTemplate");
-        Cliente clienteAux = cs.getClienteById(id);
-        mv.addObject("cliente", clienteAux);
-        mv.addObject("agendamentos", as.getAgendamento());
-        return mv;
-    }
+   
 
     @PostMapping("/salvarCliente")
     public String saveClienteMV(@ModelAttribute Cliente cliente, RedirectAttributes attributes)

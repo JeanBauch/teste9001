@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/style.css">
+    <title>Editar especializacao</title>
+</head>
+<body>
+    <div class="edit">
+        <h1>Editar especializacao</h1>
+        <a href="/"> Menu</a>
+        <a href="/especializacao/listar">Voltar</a>
+        <br>
+        <br>
+        <form th:action="@{/salvarEspecializacao}" th:object="${especializacao}" method="POST" id="formEspecializacao">
+            
+            <label>ID:</label> <span th:text="${especializacao.idEspecializacao}"></span>
+            <br>
+            <input type="hidden" th:value="${especializacao.idEspecializacao}" th:field="${especializacao.idEspecializacao}" name="idEspecializacao" />
+            
+            <label>Nome:</label>
+            <input type="text" placeholder="Nome" th:value="${especializacao.nome}" name="nome" required/>
+            <br>
+            <label>Descricao:</label>
+            <input type="text" placeholder="Descricao" th:value="${especializacao.descricao}" name="descricao" required/>
+            <br>
+
+            <input type="hidden" th:value="${especializacao.barbeiros}" th:field="${especializacao.barbeiros}" name="barbeiros" />
+
+
+               
+
+            <br>
+            <br>
+            <input type="submit" value="Salvar" />
+            <input type="reset" value="Cancelar" />
+            <br>
+            <br>
+            Barbeiro
+            <table>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Telefone</th>
+                    <th>Idade</th>
+                    <th>Salário</th>
+                    <th>Remover</th>
+                    
+                </tr>
+                <tr th:each="barbeiro : ${especializacao.barbeiros}">
+                    <td th:text="${barbeiro.idBarbeiro}"></td>
+                    <td th:text="${barbeiro.nome}"></td>
+                    <td th:text="${barbeiro.telefone}"></td>
+                    <td th:text="${barbeiro.idade}"></td>
+                    <td th:text="${barbeiro.salario}"></td>
+                    <td> <a th:href="@{'/removerEspecializacaoBarbeiro/' + ${especializacao.idEspecializacao} + '/' + ${barbeiro.idBarbeiro}}">Remover</a> </td>
+                </tr>
+            </table>
+            <br>
+            <br>
+            
+
+        </form>
+    </div>
+</body>
+</html>

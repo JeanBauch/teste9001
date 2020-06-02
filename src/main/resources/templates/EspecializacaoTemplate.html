@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/style.css">
+    <title>Especializacao</title>
+</head>
+<body>
+    <div class="templatePadrao">
+        <h1>Especializacao</h1>
+    <a href="/">Menu</a>
+    <br>
+    <div th:if="${erro}">
+        <strong th:text="${erro}"></strong>
+        <span id="x" onclick="this.parentElement.style.display='none';">&times;</span>
+    </div>
+    
+    <br>
+    <form th:action="@{/salvarEspecializacao}" th:object="${especializacao}" method="POST">
+        <label>Nome: </label>
+        <input type="text" placeholder="Insira o nome" name="nome" required/>
+        <label>Descrição: </label>
+        <input type="text" placeholder="Insira os detalhes" name="descricao" required/>
+        
+        <br>
+        <br>
+        
+        <input id="salvar" type="submit" value="Salvar"/>
+
+    </form>
+
+    <br>
+    <br>
+
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Descrição</th>
+            <th>Detalhes</th>
+            <th>Editar</th>
+            <th>Remover</th>
+            
+            
+        </tr>
+        <tr th:each="especializacao : ${especializacoes}">
+            <td th:text="${especializacao.idEspecializacao}"></td>
+            <td th:text="${especializacao.nome}"></td>
+            <td th:text="${especializacao.descricao}"></td>
+            <td> <a th:href="@{'/detalhesEspecializacao/' + ${especializacao.idEspecializacao}}">Detalhes</a> </td>
+            <td> <a th:href="@{'/editarEspecializacao?idB=' + ${especializacao.idEspecializacao}}">Editar</a> </td>
+            <td> <a th:href="@{'/removerEspecializacao?idB=' + ${especializacao.idEspecializacao}}">Remover</a> </td>
+        </tr>
+    </table>
+    </div>
+</body>
+</html>
