@@ -1,6 +1,7 @@
 package com.example.gustavo_nogueirajean_bauch.entity;
 
 import java.io.Serializable;
+import java.sql.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,6 +9,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+
+import java.time.LocalTime;
+
 
 @Entity
 public class Agendamento implements Serializable{
@@ -17,8 +21,8 @@ public class Agendamento implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int idAgendamento;
-    private String data;
-    private String hora;
+    private Date data;
+    private LocalTime hora;
 
     @ManyToOne
     @JoinColumn(name="AgendamentoBarbeiro")
@@ -28,20 +32,7 @@ public class Agendamento implements Serializable{
     @JoinColumn(name = "AgendamentoCliente")
     private Cliente cliente;
     
-    public String getData() {
-        return data;
-    }
-    public void setData(String data) {
-        this.data = data;
-    }
-
-    public String getHora() {
-        return hora;
-    }
-
-    public void setHora(String hora) {
-        this.hora = hora;
-    }
+    
 
     public Barbeiro getBarbeiro() {
         return barbeiro;
@@ -66,4 +57,22 @@ public class Agendamento implements Serializable{
     public void setIdAgendamento(int idAgendamento) {
         this.idAgendamento = idAgendamento;
     }
+
+    public Date getData() {
+        return data;
+    }
+
+    public void setData(Date data) {
+        this.data = data;
+    }
+
+    public LocalTime getHora() {
+        return hora;
+    }
+
+    public void setHora(LocalTime hora) {
+        this.hora = hora;
+    }
+
+    
 }

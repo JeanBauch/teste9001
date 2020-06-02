@@ -81,8 +81,11 @@ public class ClienteController {
     public String removerCliente(@RequestParam Integer idC, RedirectAttributes attributes)
     {
         Cliente cliente = cs.getClienteById(idC);
-        cs.removeCliente(cliente);
+        boolean resp = cs.removeCliente(cliente);
             
+        if(!resp)
+            attributes.addFlashAttribute("erro2", "Cliente ainda possui agendamentos pendentes");
+
         return "redirect:/cliente/listar";
     }
 

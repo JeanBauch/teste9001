@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/style.css">
+    <title>Agendamento</title>
+</head>
+<body>
+    <div class="templatePadrao">
+        <h1>Agendamento</h1>
+    <a href="/">Menu</a>
+    <br>
+    <div th:if="${erro}">
+        <strong th:text="${erro}"></strong>
+        <span id="x" onclick="this.parentElement.style.display='none';">&times;</span>
+    </div>
+    <br>
+    <form th:action="@{/salvarAgendamento}" th:object="${agendamento}" method="POST">
+        
+        <label>Cliente: </label>
+        <select th:field="${agendamento.cliente}" required>
+            <option value="">Escolha o cliente</option>
+            <option th:each="cliente : ${clientes}"
+                        th:value="${cliente.idCliente}"
+                        th:text="${cliente.nome}">
+            </option>
+        </select>
+
+        <label>Barbeiro: </label>
+        <select th:field="${agendamento.barbeiro}" required>
+            <option value="">Escolha o barbeiro</option>
+            <option th:each="barbeiro : ${barbeiros}"
+                        th:value="${barbeiro.idBarbeiro}"
+                        th:text="${barbeiro.nome}">
+            </option>
+        </select>
+
+        <label>Data: </label>
+        <input type="date" name="data" required/>
+        <label>Hora: </label>
+        <input type="time" placeholder="Insira o horario" name="hora" required/>
+
+        <br>
+        <br>
+        
+        <br>
+        <br>
+        
+        <input id="salvar" type="submit" value="Salvar"/>
+
+    </form>
+
+    <br>
+    <br>
+
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Data</th>
+            <th>Hora</th>
+            <th>Cliente</th>
+            <th>Barbeiro</th>
+            <th>Detalhes</th>
+            <th>Editar</th>
+            
+        </tr>
+        <tr th:each="agendamento : ${agendamentos}">
+            <td th:text="${agendamento.idAgendamento}"></td>
+            <td th:text="${agendamento.data}"></td>
+            <td th:text="${agendamento.hora}"></td>
+            <td th:text="${agendamento?.cliente.nome}"></td>
+            <td th:text="${agendamento?.barbeiro.nome}"></td>
+            <td> <a th:href="@{'/detalhesAgendamento/' + ${agendamento.idAgendamento}}">Detalhes</a> </td>
+            <td> <a th:href="@{'/removerAgendamento?idB=' + ${agendamento.idAgendamento}}">Remover</a> </td>
+        </tr>
+    </table>
+    </div>
+</body>
+</html>

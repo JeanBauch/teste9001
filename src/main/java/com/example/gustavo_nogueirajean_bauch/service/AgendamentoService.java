@@ -23,14 +23,9 @@ public class AgendamentoService {
         return ar.findById(id).get();
     }
 
-    public boolean addAgendamento(Agendamento a)
+    public void addAgendamento(Agendamento a)
     {
-        if(a.getData().charAt(0) != ' ' && a.getHora().charAt(0) != ' ')
-        {
-            ar.save(a);
-            return true;
-        }
-        return false;
+        ar.save(a);
     }
 
     public void removeAgendamento(Agendamento a)

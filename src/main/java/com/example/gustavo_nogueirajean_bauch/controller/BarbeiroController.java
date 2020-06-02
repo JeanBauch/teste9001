@@ -58,6 +58,17 @@ public class BarbeiroController {
     }
 
     
+    @PostMapping("/associarEspecializacao")
+    public String saveAutorLivro(@ModelAttribute Especializacao especializacao, @RequestParam Integer codB)
+    {
+        Barbeiro barbeiro  = beS.getBarbeiroaById(codB);
+        especializacao = es.getEspecializacaoById(especializacao.getIdEspecializacao());
+
+        barbeiro.getEspecializacao().add(especializacao);
+        beS.addBarbeiro(barbeiro);
+
+        return "redirect:/detalhesBarbeiro/" + codB;
+    }
 
     @PostMapping("/salvarBarbeiro")
     public String saveBarbeiroMV(@ModelAttribute Barbeiro barbeiro, RedirectAttributes attributes)
@@ -105,11 +116,12 @@ public class BarbeiroController {
     }
 
     @GetMapping("/removerBarbeiro")
-    public String removerBarbeiro(@RequestParam Integer idB)
+    public String removerBarbeiro(@RequestParam Integer idB, RedirectAttributes attributes)
     {
         Barbeiro barbeiro = beS.getBarbeiroaById(idB);
-        beS.removeBarbeiro(barbeiro);
-
+        boolean resp = beS.removeBarbeiro(barbeiro);
+        if(!resp)
+            attributes.addFlashAttribute("erro2", "Barbeiro ainda possui agendamentos pendentes");
         return "redirect:/barbeiro/listar";
     }
 }
