@@ -29,7 +29,7 @@
                 <option value="">Escolha a especializacao</option>
                 <option th:each="especializacao:${especializacoes}"
                             th:value="${especializacao.idEspecializacao}"
-                            th:text="${especializacao.nome}">
+                            th:text="${especializacao?.nome}">
                 </option>
             </select>
             <input type="submit" value="Associar especializacao" />
@@ -47,9 +47,9 @@
             </tr>
             
             <tr th:each="especializacao : ${barbeiro.especializacao}">
-                <td th:text="${especializacao.idEspecializacao}"></td>
-                <td th:text="${especializacao.nome}"></td>
-                <td th:text="${especializacao.descricao}"></td>
+                <td th:text="${especializacao?.idEspecializacao}"></td>
+                <td th:text="${especializacao?.nome}"></td>
+                <td th:text="${especializacao?.descricao}"></td>
             </tr>
             
         </table>
@@ -67,9 +67,9 @@
             </tr>
             
             <tr th:each="agendamento : ${barbeiro.agendamento}">
-                <td th:text="${agendamento.idAgendamento}"></td>
-                <td th:text="${agendamento.data}"></td>
-                <td th:text="${agendamento.hora}"></td>
+                <td th:text="${agendamento?.idAgendamento}"></td>
+                <td th:text="${agendamento?.data}"></td>
+                <td th:text="${agendamento?.hora}"></td>
             </tr>
             
         </table>

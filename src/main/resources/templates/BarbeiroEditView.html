@@ -53,9 +53,9 @@
                 </tr>
                 
                 <tr th:each="especializacao : ${barbeiro.especializacao}">
-                    <td th:text="${especializacao.idEspecializacao}"></td>
-                    <td th:text="${especializacao.nome}"></td>
-                    <td th:text="${especializacao.descricao}"></td>
+                    <td th:text="${especializacao?.idEspecializacao}"></td>
+                    <td th:text="${especializacao?.nome}"></td>
+                    <td th:text="${especializacao?.descricao}"></td>
                     <td> <a th:href="@{'/removerBarbeiroEspecializacao/' + ${barbeiro.idBarbeiro} + '/' + ${especializacao.idEspecializacao}}">Remover</a> </td>
 
                 </tr>
@@ -73,9 +73,9 @@
                 </tr>
                 
                 <tr th:each="agendamento : ${barbeiro.agendamento}">
-                    <td th:text="${agendamento.idAgendamento}"></td>
-                    <td th:text="${agendamento.data}"></td>
-                    <td th:text="${agendamento.hora}"></td>
+                    <td th:text="${agendamento?.idAgendamento}"></td>
+                    <td th:text="${agendamento?.data}"></td>
+                    <td th:text="${agendamento?.hora}"></td>
                     <td> <a th:href="@{'/removerBarbeiroAgendamento/' + ${barbeiro.idBarbeiro} + '/' + ${agendamento.idAgendamento}}">Remover</a> </td>
                 </tr>
                 

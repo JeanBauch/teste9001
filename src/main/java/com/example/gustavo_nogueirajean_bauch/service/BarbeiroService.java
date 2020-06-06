@@ -2,6 +2,7 @@ package com.example.gustavo_nogueirajean_bauch.service;
 
 import java.util.List;
 
+import com.example.gustavo_nogueirajean_bauch.entity.Agendamento;
 import com.example.gustavo_nogueirajean_bauch.entity.Barbeiro;
 import com.example.gustavo_nogueirajean_bauch.repository.BarbeiroRepository;
 
@@ -35,11 +36,10 @@ public class BarbeiroService {
 
     public boolean removeBarbeiro(Barbeiro b)
     {
-        if(b.getAgendamento().size() == 0)
-        {
-            beR.delete(b);
-            return true;
+        for (Agendamento a : b.getAgendamento()) {
+            if(!a.isFinalizado())
+                return false;
         }
-        return false;
+        return true;
     }
 }

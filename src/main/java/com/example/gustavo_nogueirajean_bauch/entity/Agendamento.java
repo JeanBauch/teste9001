@@ -23,6 +23,7 @@ public class Agendamento implements Serializable{
     private int idAgendamento;
     private Date data;
     private LocalTime hora;
+    private boolean finalizado;
 
     @ManyToOne
     @JoinColumn(name="AgendamentoBarbeiro")
@@ -84,6 +85,14 @@ public class Agendamento implements Serializable{
 
     public void setEspecializacao(Especializacao especializacao) {
         this.especializacao = especializacao;
+    }
+
+    public boolean isFinalizado() {
+        return finalizado;
+    }
+
+    public void setFinalizado(boolean finalizado) {
+        this.finalizado = finalizado;
     }
 
     

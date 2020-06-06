@@ -56,6 +56,15 @@ public class AgendamentoController {
         return mv;
     }
 
+    @GetMapping("/agendamento/finalizar/{id}")
+    public String finalizarAgendamento(@PathVariable(name="id") Integer id) {
+        Agendamento agendamento = as.getAgendamentoById(id);
+        as.finalizarAgendamento(agendamento);
+        as.update(agendamento);
+        System.out.println(agendamento.isFinalizado());
+        return "redirect:/agendamento/listar";
+    }
+
     @PostMapping("/salvarAgendamento")
     public String saveAgendamentoMV(@ModelAttribute Agendamento agendamento, RedirectAttributes attributes)
     {

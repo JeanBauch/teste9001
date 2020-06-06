@@ -51,9 +51,9 @@
                 </tr>
                 
                 <tr th:each="agendamento : ${cliente.agendamento}">
-                    <td th:text="${agendamento.idAgendamento}"></td>
-                    <td th:text="${agendamento.data}"></td>
-                    <td th:text="${agendamento.hora}"></td>
+                    <td th:text="${agendamento?.idAgendamento}"></td>
+                    <td th:text="${agendamento?.data}"></td>
+                    <td th:text="${agendamento?.hora}"></td>
                     <td> <a th:href="@{'/removerClienteAgendamento/' + ${cliente.idCliente} + '/' + ${agendamento.idAgendamento}}">Remover</a> </td>
                 </tr>
                 

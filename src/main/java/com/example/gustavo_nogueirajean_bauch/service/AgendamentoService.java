@@ -54,4 +54,14 @@ public class AgendamentoService {
     {
         ar.delete(a);
     }
+
+    public void finalizarAgendamento(Agendamento a)
+    {
+        a.setFinalizado(true);
+    }
+
+    public void update(Agendamento a)
+    {
+        ar.save(a);
+    }
 }

@@ -2,6 +2,7 @@ package com.example.gustavo_nogueirajean_bauch.service;
 
 import java.util.List;
 
+import com.example.gustavo_nogueirajean_bauch.entity.Agendamento;
 import com.example.gustavo_nogueirajean_bauch.entity.Cliente;
 import com.example.gustavo_nogueirajean_bauch.repository.ClienteRepository;
 
@@ -35,11 +36,10 @@ public class ClienteService {
 
     public boolean removeCliente(Cliente c)
     {
-        if(c.getAgendamento().size() == 0)
-        {
-            cr.delete(c);
-            return true;
+        for (Agendamento a : c.getAgendamento()) {
+            if(!a.isFinalizado())
+                return false;
         }
-        return false;
+        return true;
     }           
 }

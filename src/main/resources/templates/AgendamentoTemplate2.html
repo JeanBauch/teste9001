@@ -27,7 +27,7 @@
             <option value="">Escolha o barbeiro</option>
             <option th:each="barbeiro : ${barbeiroDisp}"
                         th:value="${barbeiro.idBarbeiro}"
-                        th:text="${barbeiro.nome}">
+                        th:text="${barbeiro?.nome}">
             </option>
         </select>
         <input type="hidden" th:value="${agendamento.cliente}" th:field="${agendamento.cliente}" name="cliente" />
@@ -46,8 +46,8 @@
             
         </tr>
         <tr th:each="barbeiroI : ${barbeiroIndisp}">
-            <td th:text="${barbeiroI.nome}"></td>
-            <td th:text="${barbeiroI.telefone}"></td>
+            <td th:text="${barbeiroI?.nome}"></td>
+            <td th:text="${barbeiroI?.telefone}"></td>
         </tr>
     </table>
 

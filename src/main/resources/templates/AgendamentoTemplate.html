@@ -28,7 +28,7 @@
             <option value="">Escolha o cliente</option>
             <option th:each="cliente : ${clientes}"
                         th:value="${cliente.idCliente}"
-                        th:text="${cliente.nome}">
+                        th:text="${cliente?.nome}">
             </option>
         </select>
 
@@ -37,7 +37,7 @@
             <option value="">Escolha a especialização</option>
             <option th:each="especializacao : ${especializacoes}"
                         th:value="${especializacao.idEspecializacao}"
-                        th:text="${especializacao.nome}">
+                        th:text="${especializacao?.nome}">
             </option>
         </select>
 
@@ -69,17 +69,58 @@
             <th>Especialização</th>
             <th>Detalhes</th>
             <th>Remover</th>
+            <th>Status</th>
+            <th>Finalizar</th>
             
         </tr>
         <tr th:each="agendamento : ${agendamentos}">
             <td th:text="${agendamento.idAgendamento}"></td>
             <td th:text="${agendamento.data}"></td>
             <td th:text="${agendamento.hora}"></td>
-            <td th:text="${agendamento.cliente?.nome}"></td>
-            <td th:text="${agendamento.barbeiro?.nome}"></td>
+
+            <div th:if=${agendamento.cliente}>
+                <td th:text="${agendamento.cliente?.nome}"></td>
+            </div>
+            <div th:unless=${agendamento.cliente}>
+                <td th:text="Cliente excluido"></td>
+            </div>
+
+            <div th:if=${agendamento.barbeiro}>
+                <td th:text="${agendamento.barbeiro?.nome}"></td>
+            </div>
+            <div th:unless=${agendamento.barbeiro}>
+                <td th:text="${Barbeiro excluido}"></td>
+            </div>
+
             <td th:text="${agendamento.especializacao?.nome}"></td>
             <td> <a th:href="@{'/detalhesAgendamento/' + ${agendamento.idAgendamento}}">Detalhes</a> </td>
-            <td> <a th:href="@{'/removerAgendamento?idB=' + ${agendamento.idAgendamento}}">Remover</a> </td>
+
+            <div th:if=${agendamento.finalizado}>
+                <td>Finalizado</td>
+            </div>
+            <div th:unless=${agendamento.finalizado}>
+                <td> <a th:href="@{'/removerAgendamento?idB=' + ${agendamento.idAgendamento}}">Remover</a> </td>
+            </div>
+            
+
+            <div th:if=${agendamento.finalizado}>
+                <td>Finalizado</td>
+            </div>
+
+            <div th:unless=${agendamento.finalizado}>
+                <td>Agendado</td>
+            </div>
+
+            
+            <div th:if=${agendamento.finalizado}>
+                <td> Finalizado </td>
+            </div>
+            <td th:unless=${agendamento.finalizado}> 
+                <div>
+                    <a th:href="@{'/agendamento/finalizar/' + ${agendamento.idAgendamento}}"> Finalizar </a>
+                </div>
+            </td>
+
         </tr>
     </table>
     </div>
