@@ -40,6 +40,7 @@ public class ClienteService {
             if(!a.isFinalizado())
                 return false;
         }
+        cr.delete(c);
         return true;
     }           
 }

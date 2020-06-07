@@ -40,6 +40,7 @@ public class BarbeiroService {
             if(!a.isFinalizado())
                 return false;
         }
+        beR.delete(b);
         return true;
     }
 }
