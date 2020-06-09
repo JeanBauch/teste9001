@@ -7,123 +7,130 @@
     <title>Agendamento</title>
 </head>
 <body>
-    <div class="templatePadrao">
-        <h1>Agendamento</h1>
-    <a href="/">Menu</a>
-    <br>
-    <b>Horario de funcionamento: 9:00 - 18:00 </b>
-    <p>Cada serviço consome o tempo de 30 minutos</p>
-    <p>Agendamento após cadastrado não pode ser alterado</p>
-    <br>
-    <br>
-    <div th:if="${erro}">
-        <strong th:text="${erro}"></strong>
-        <span id="x" onclick="this.parentElement.style.display='none';">&times;</span>
-    </div>
-    <br>
-    <br>
-    <form th:action="@{/salvarAgendamento2}" th:object="${agendamento}" method="POST">
+
+    <div class="container">
+        <header class="title">
+            <h1>Agendamento</h1>
+            <a href="/">Menu</a>
+        </header>
+
+        <main class="register-container">
+            <div class="info">
+                <b>Horario de funcionamento: 9:00 - 18:00 </b><br>
+                <b>Cada serviço consome o tempo de 30 minutos</b><br>
+                <b>Agendamento após cadastrado não pode ser alterado</b>
+            </div>
+
+            <form th:action="@{/salvarAgendamento2}" th:object="${agendamento}" method="POST">
         
-        <label>Cliente: </label>
-        <select th:field="${agendamento.cliente}" required>
-            <option value="">Escolha o cliente</option>
-            <option th:each="cliente : ${clientes}"
-                        th:value="${cliente.idCliente}"
-                        th:text="${cliente?.nome}">
-            </option>
-        </select>
-
-        <label>Especialização: </label>
-        <select th:field="${agendamento.especializacao}" required>
-            <option value="">Escolha a especialização</option>
-            <option th:each="especializacao : ${especializacoes}"
-                        th:value="${especializacao.idEspecializacao}"
-                        th:text="${especializacao?.nome}">
-            </option>
-        </select>
-
-        <label>Data: </label>
-        <input type="date" name="data" required/>
-        <label>Hora: </label>
-        <input type="time" placeholder="Insira o horario" name="hora" required/>
-
-        <br>
-        <br>
+                <select th:field="${agendamento.cliente}" required>
+                    <option value="">Escolha o cliente</option>
+                    <option th:each="cliente : ${clientes}"
+                                th:value="${cliente.idCliente}"
+                                th:text="${cliente?.nome}">
+                    </option>
+                </select>
         
-        <br>
-        <br>
+                <select th:field="${agendamento.especializacao}" required>
+                    <option value="">Escolha a especialização</option>
+                    <option th:each="especializacao : ${especializacoes}"
+                                th:value="${especializacao.idEspecializacao}"
+                                th:text="${especializacao?.nome}">
+                    </option>
+                </select>
         
-        <input id="salvar" type="submit" value="Salvar"/>
+                <input type="date" name="data" required/>
+                <input type="time" placeholder="Insira o horario" name="hora" required/>
+                <br>
+                <br>
+                
+                <button id="salvar" type="submit"> Salvar </button>
 
-    </form>
-
-    <br>
-    <br>
-
-    <table>
-        <tr>
-            <th>ID</th>
-            <th>Data</th>
-            <th>Hora</th>
-            <th>Cliente</th>
-            <th>Barbeiro</th>
-            <th>Especialização</th>
-            <th>Detalhes</th>
-            <th>Remover</th>
-            <th>Status</th>
-            <th>Finalizar</th>
-            
-        </tr>
-        <tr th:each="agendamento : ${agendamentos}">
-            <td th:text="${agendamento.idAgendamento}"></td>
-            <td th:text="${agendamento.data}"></td>
-            <td th:text="${agendamento.hora}"></td>
-
-            <div th:if=${agendamento.cliente}>
-                <td th:text="${agendamento.cliente?.nome}"></td>
-            </div>
-            <div th:unless=${agendamento.cliente}>
-                <td th:text="Cliente excluido"></td>
-            </div>
-
-            <div th:if=${agendamento.barbeiro}>
-                <td th:text="${agendamento.barbeiro?.nome}"></td>
-            </div>
-            <div th:unless=${agendamento.barbeiro}>
-                <td th:text="${Barbeiro excluido}"></td>
-            </div>
-
-            <td th:text="${agendamento.especializacao?.nome}"></td>
-            <td> <a th:href="@{'/detalhesAgendamento/' + ${agendamento.idAgendamento}}">Detalhes</a> </td>
-
-            <div th:if=${agendamento.finalizado}>
-                <td>Finalizado</td>
-            </div>
-            <div th:unless=${agendamento.finalizado}>
-                <td> <a th:href="@{'/removerAgendamento?idB=' + ${agendamento.idAgendamento}}">Remover</a> </td>
-            </div>
-            
-
-            <div th:if=${agendamento.finalizado}>
-                <td>Finalizado</td>
-            </div>
-
-            <div th:unless=${agendamento.finalizado}>
-                <td>Agendado</td>
-            </div>
-
-            
-            <div th:if=${agendamento.finalizado}>
-                <td> Finalizado </td>
-            </div>
-            <td th:unless=${agendamento.finalizado}> 
-                <div>
-                    <a th:href="@{'/agendamento/finalizar/' + ${agendamento.idAgendamento}}"> Finalizar </a>
+                <div class="alert" th:if="${erro}">
+                    <span id="x" onclick="this.parentElement.style.display='none';">&times;</span>
+                    <p th:text="${erro}"></p>
                 </div>
-            </td>
+            </form>
+            
+        </main>
 
-        </tr>
-    </table>
+        <aside class="tableContainer">
+            <table>
+                <tr>
+                    <th>ID</th>
+                    <th>Data</th>
+                    <th>Hora</th>
+                    <th>Cliente</th>
+                    <th>Barbeiro</th>
+                    <th>Especialização</th>
+                    <th>Detalhes</th>
+                    <th>Remover</th>
+                    <th>Status</th>
+                    <th>Finalizar</th>
+                    
+                </tr>
+                <tr th:each="agendamento : ${agendamentos}">
+                    <td th:text="${agendamento.idAgendamento}"></td>
+                    <td th:text="${agendamento.data}"></td>
+                    <td th:text="${agendamento.hora}"></td>
+        
+                    <div th:if=${agendamento.cliente}>
+                        <td th:text="${agendamento.cliente?.nome}"></td>
+                    </div>
+                    <div th:unless=${agendamento.cliente}>
+                        <td>Cliente excluido</td>
+                    </div>
+        
+                    <div th:if=${agendamento.barbeiro}>
+                        <td th:text="${agendamento.barbeiro?.nome}"></td>
+                    </div>
+                    <div th:unless=${agendamento.barbeiro}>
+                        <td>Barbeiro excluido</td>
+                    </div>
+        
+                    <div th:if=${agendamento.especializacao}>
+                        <td th:text="${agendamento.especializacao?.nome}"></td>
+                    </div>
+        
+                    <div th:unless=${agendamento.especializacao}>
+                        <td>Especialização excluida</td>
+                    </div>
+        
+                    
+                    <td> <a th:href="@{'/detalhesAgendamento/' + ${agendamento.idAgendamento}}">Detalhes</a> </td>
+        
+                    <div th:if=${agendamento.finalizado}>
+                        <td>Finalizado</td>
+                    </div>
+                    <div th:unless=${agendamento.finalizado}>
+                        <td> <a th:href="@{'/removerAgendamento?idB=' + ${agendamento.idAgendamento}}">Remover</a> </td>
+                    </div>
+                    
+        
+                    <div th:if=${agendamento.finalizado}>
+                        <td>Finalizado</td>
+                    </div>
+        
+                    <div th:unless=${agendamento.finalizado}>
+                        <td>Agendado</td>
+                    </div>
+        
+                    
+                    <div th:if=${agendamento.finalizado}>
+                        <td> Finalizado </td>
+                    </div>
+                    <td th:unless=${agendamento.finalizado}> 
+                        <div>
+                            <a th:href="@{'/agendamento/finalizar/' + ${agendamento.idAgendamento}}"> Finalizar </a>
+                        </div>
+                    </td>
+        
+                </tr>
+            </table>
+
+        </aside>
+
+        <footer></footer>
     </div>
 </body>
 </html>

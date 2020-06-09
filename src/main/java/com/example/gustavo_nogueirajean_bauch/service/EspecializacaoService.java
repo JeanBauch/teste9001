@@ -2,6 +2,7 @@ package com.example.gustavo_nogueirajean_bauch.service;
 
 import java.util.List;
 
+import com.example.gustavo_nogueirajean_bauch.entity.Agendamento;
 import com.example.gustavo_nogueirajean_bauch.entity.Especializacao;
 import com.example.gustavo_nogueirajean_bauch.repository.EspecializacaoRepository;
 
@@ -35,8 +36,12 @@ public class EspecializacaoService {
 
     public boolean removeEspecializacao(Especializacao e)
     {
-        if(e.getBarbeiros().size() == 0 && e.getAgendamentos().size() == 0)
+        if(e.getBarbeiros().size() == 0)
         {
+            for (Agendamento a : e.getAgendamentos()) {
+                if(!a.isFinalizado())
+                    return false;
+            }
             es.delete(e);
             return true;
         }

@@ -7,56 +7,62 @@
     <title>Especializacao</title>
 </head>
 <body>
-    <div class="templatePadrao">
-        <h1>Especialização</h1>
-        <a href="/">Menu</a>
-        <br>
-        <div th:if="${erro}">
-            <strong th:text="${erro}"></strong>
-            <span id="x" onclick="this.parentElement.style.display='none';">&times;</span>
-        </div>
-        
-        <br>
-        <form th:action="@{/salvarEspecializacao}" th:object="${especializacao}" method="POST">
-            <label>Nome: </label>
-            <input type="text" placeholder="Insira o nome" name="nome" required/>
-            <label>Descrição: </label>
-            <input type="text" placeholder="Insira os detalhes" name="descricao" required/>
-            <label>Preço por serviço: </label>
-            <input type="text" placeholder="Insira o valor" name="preco" required/>
-            
-            <br>
-            <br>
-            
-            <input id="salvar" type="submit" value="Salvar"/>
 
-        </form>
+    <div class="container">
+        <header class="title">
+            <h1>Especialização</h1>
+            <a href="/">Menu</a>
+        </header>
 
-        <br>
-        <br>
-
-        <table>
-            <tr>
-                <th>ID</th>
-                <th>Nome</th>
-                <th>Descrição</th>
-                <th>Preço por serviço</th>
-                <th>Detalhes</th>
-                <th>Editar</th>
-                <th>Remover</th>
+        <main class="register-container">
+            <form th:action="@{/salvarEspecializacao}" th:object="${especializacao}" method="POST">
                 
+                <input type="text" placeholder="Insira o nome" name="nome" required/>
                 
-            </tr>
-            <tr th:each="especializacao : ${especializacoes}">
-                <td th:text="${especializacao.idEspecializacao}"></td>
-                <td th:text="${especializacao.nome}"></td>
-                <td th:text="${especializacao.descricao}"></td>
-                <td th:text="${especializacao.preco}"></td>
-                <td> <a th:href="@{'/detalhesEspecializacao/' + ${especializacao.idEspecializacao}}">Detalhes</a> </td>
-                <td> <a th:href="@{'/editarEspecializacao?idB=' + ${especializacao.idEspecializacao}}">Editar</a> </td>
-                <td> <a th:href="@{'/removerEspecializacao?idB=' + ${especializacao.idEspecializacao}}">Remover</a> </td>
-            </tr>
-        </table>
+                <input type="text" placeholder="Insira os detalhes" name="descricao" required/>
+                
+                <input type="text" placeholder="Insira o valor" name="preco" required/>
+                
+                <br>
+                <br>
+                
+                <button id="salvar" type="submit"> Salvar </button>
+            </form>
+
+            <div class="alert" th:if="${erro}">
+                <span id="x" onclick="this.parentElement.style.display='none';">&times;</span>
+                <p th:text="${erro}"></p>
+            </div>
+
+        </main>
+
+        <aside class="tableContainer">
+            <table>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Descrição</th>
+                    <th>Preço por serviço</th>
+                    <th>Detalhes</th>
+                    <th>Editar</th>
+                    <th>Remover</th>
+                    
+                    
+                </tr>
+                <tr th:each="especializacao : ${especializacoes}">
+                    <td th:text="${especializacao.idEspecializacao}"></td>
+                    <td th:text="${especializacao.nome}"></td>
+                    <td th:text="${especializacao.descricao}"></td>
+                    <td th:text="${especializacao.preco}"></td>
+                    <td> <a th:href="@{'/detalhesEspecializacao/' + ${especializacao.idEspecializacao}}">Detalhes</a> </td>
+                    <td> <a th:href="@{'/editarEspecializacao?idB=' + ${especializacao.idEspecializacao}}">Editar</a> </td>
+                    <td> <a th:href="@{'/removerEspecializacao?idB=' + ${especializacao.idEspecializacao}}">Remover</a> </td>
+                </tr>
+            </table>
+        </aside>
+
+        <footer></footer>
+
     </div>
 </body>
 </html>
